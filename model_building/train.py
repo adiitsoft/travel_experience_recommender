@@ -178,7 +178,7 @@ joblib.dump(best_overall_model, model_path)
 print(f"Best Model saved as artifact at: {model_path}")
 
 # Upload to Hugging Face
-repo_id = os.getenv("TRAVEL_WELLNESS_MODEL_REPO_ID", "your-huggingface-username/travel-wellness-model")
+repo_id = os.getenv("TRAVEL_WELLNESS_MODEL_REPO_ID", "AdinarayanaHF/travel-wellness-model")
 repo_type = "model"
 
 if os.getenv("HF_TOKEN"):

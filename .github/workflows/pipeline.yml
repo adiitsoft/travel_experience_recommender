@@ -1,0 +1,52 @@
+name: Travel Wellness MLOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate-train-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate Python syntax
+        run: |
+          python -m compileall deployment model_building hosting src deploy_to_huggingface.py
+
+      - name: Prepare data
+        run: |
+          python model_building/prep.py
+
+      - name: Train model
+        env:
+          MLFLOW_TRACKING_URI: file://${{ github.workspace }}/mlruns
+        run: |
+          python model_building/train.py
+
+      - name: Verify deployment artifact
+        run: |
+          test -f deployment/travel_wellness_model.joblib
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: travel-wellness-model
+          path: deployment/travel_wellness_model.joblib

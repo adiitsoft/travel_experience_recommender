@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 APP_NAME = "Travel Wellness Lead Scoring"
-MODEL_REPO_ID = os.getenv("TRAVEL_WELLNESS_MODEL_REPO_ID", "your-huggingface-username/travel-wellness-model")
+MODEL_REPO_ID = os.getenv("TRAVEL_WELLNESS_MODEL_REPO_ID", "AdinarayanaHF/travel-wellness-model")
 MODEL_FILENAME = os.getenv("TRAVEL_WELLNESS_MODEL_FILENAME", "travel_wellness_model.joblib")
 LOCAL_MODEL_PATH = Path(os.getenv("TRAVEL_WELLNESS_LOCAL_MODEL_PATH", Path(__file__).with_name(MODEL_FILENAME)))
 

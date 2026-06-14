@@ -17,7 +17,7 @@ project_root = Path(__file__).resolve().parents[1]
 output_dir = project_root / "data" / "processed"
 output_dir.mkdir(parents=True, exist_ok=True)
 
-dataset_repo_id = os.getenv("TRAVEL_WELLNESS_DATASET_REPO_ID", "your-huggingface-username/travel-wellness-data")
+dataset_repo_id = os.getenv("TRAVEL_WELLNESS_DATASET_REPO_ID", "AdinarayanaHF/travel-wellness-data")
 DATASET_PATH = os.getenv("TRAVEL_WELLNESS_DATASET_PATH", str(project_root / "data" / "travel_wellness.csv"))
 travel_wellness_dataset = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visit with Us MLOps Project Submission</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 0; color: #1f2937; background: #f8fafc; }
+    main { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+    section { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 16px 0; }
+    pre { white-space: pre-wrap; background: #111827; color: #f9fafb; border-radius: 8px; padding: 16px; overflow-x: auto; }
+    code { font-family: Consolas, Monaco, monospace; }
+    .markdown { line-height: 1.55; }
+    .code h3 { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+<main>
+<section class='markdown'># Visit with Us: Wellness Tourism Package Purchase Prediction<br>
+<br>
+**Role:** MLOps Engineer  <br>
+**Company:** Visit with Us  <br>
+**Objective:** Build and deploy an automated MLOps pipeline that predicts whether a customer is likely to purchase the Wellness Tourism Package before campaign outreach.<br>
+<br>
+## Submission Links<br>
+<br>
+- GitHub Repository: https://github.com/adiitsoft/travel_experience_recommender<br>
+- GitHub Actions Workflow: https://github.com/adiitsoft/travel_experience_recommender/actions/workflows/pipeline.yml<br>
+- Hugging Face Dataset: https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data<br>
+- Hugging Face Model Hub: https://huggingface.co/AdinarayanaHF/travel-wellness-model<br>
+- Hugging Face Space: https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring<br>
+- Live Streamlit App: https://adinarayanahf-travel-wellness-lead-scoring.hf.space<br>
+</section><section class='markdown'>## 1. Business Context<br>
+<br>
+Visit with Us is introducing a new Wellness Tourism Package and needs a scalable way to identify customers who are likely to purchase before the sales team contacts them. The previous manual targeting process is inconsistent, time-consuming, and difficult to reproduce.<br>
+<br>
+This project solves the problem using an MLOps workflow that integrates data registration, preprocessing, model experimentation, model registration, deployment, and CI/CD automation. The resulting system helps the marketing and sales teams prioritize high-potential customers and continuously improve the model as customer behavior changes.<br>
+</section><section class='markdown'>## 2. Data Dictionary<br>
+<br>
+| Column | Description |<br>
+|---|---|<br>
+| CustomerID | Unique identifier for each customer |<br>
+| ProdTaken | Target variable: 0 = did not purchase, 1 = purchased |<br>
+| Age | Customer age |<br>
+| TypeofContact | Contact method: Company Invited or Self Inquiry |<br>
+| CityTier | City category based on development and living standards |<br>
+| Occupation | Customer occupation |<br>
+| Gender | Customer gender |<br>
+| NumberOfPersonVisiting | Number of people accompanying the customer |<br>
+| PreferredPropertyStar | Preferred hotel star rating |<br>
+| MaritalStatus | Customer marital status |<br>
+| NumberOfTrips | Average annual trips |<br>
+| Passport | Whether customer has a passport: 0 = No, 1 = Yes |<br>
+| OwnCar | Whether customer owns a car: 0 = No, 1 = Yes |<br>
+| NumberOfChildrenVisiting | Children below age 5 accompanying the customer |<br>
+| Designation | Customer job designation |<br>
+| MonthlyIncome | Gross monthly income |<br>
+| PitchSatisfactionScore | Customer satisfaction score for the sales pitch |<br>
+| ProductPitched | Product category pitched to the customer |<br>
+| NumberOfFollowups | Follow-ups after the sales pitch |<br>
+| DurationOfPitch | Duration of the pitch in minutes |<br>
+</section><section class='markdown'>## 3. Project Architecture<br>
+<br>
+The repository follows a modular structure:<br>
+<br>
+```text<br>
+travel_wellness_lead_scoring/<br>
+├── data/<br>
+│   └── travel_wellness.csv<br>
+├── model_building/<br>
+│   ├── data_register.py<br>
+│   ├── prep.py<br>
+│   └── train.py<br>
+├── deployment/<br>
+│   ├── app.py<br>
+│   ├── Dockerfile<br>
+│   ├── requirements.txt<br>
+│   └── travel_wellness_model.joblib<br>
+├── hosting/<br>
+│   └── hosting.py<br>
+├── .github/workflows/pipeline.yml<br>
+├── deploy_to_huggingface.py<br>
+├── register_hf_assets.py<br>
+├── requirements.txt<br>
+└── README.md<br>
+```<br>
+</section><section class='code'><h3>Code</h3><pre><code># Evidence: project and public asset links
+project_links = {
+    &quot;github_repository&quot;: &quot;https://github.com/adiitsoft/travel_experience_recommender&quot;,
+    &quot;github_actions_workflow&quot;: &quot;https://github.com/adiitsoft/travel_experience_recommender/actions/workflows/pipeline.yml&quot;,
+    &quot;hugging_face_dataset&quot;: &quot;https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data&quot;,
+    &quot;hugging_face_model&quot;: &quot;https://huggingface.co/AdinarayanaHF/travel-wellness-model&quot;,
+    &quot;hugging_face_space&quot;: &quot;https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring&quot;,
+    &quot;live_app&quot;: &quot;https://adinarayanahf-travel-wellness-lead-scoring.hf.space&quot;,
+}
+project_links</code></pre><h3>Output</h3><pre><code>{&#x27;github_repository&#x27;: &#x27;https://github.com/adiitsoft/travel_experience_recommender&#x27;,
+ &#x27;github_actions_workflow&#x27;: &#x27;https://github.com/adiitsoft/travel_experience_recommender/actions/workflows/pipeline.yml&#x27;,
+ &#x27;hugging_face_dataset&#x27;: &#x27;https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data&#x27;,
+ &#x27;hugging_face_model&#x27;: &#x27;https://huggingface.co/AdinarayanaHF/travel-wellness-model&#x27;,
+ &#x27;hugging_face_space&#x27;: &#x27;https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring&#x27;,
+ &#x27;live_app&#x27;: &#x27;https://adinarayanahf-travel-wellness-lead-scoring.hf.space&#x27;}
+</code></pre></section><section class='markdown'>## 4. Data Registration<br>
+<br>
+Rubric coverage:<br>
+<br>
+- Created a master project folder and `data/` subfolder.<br>
+- Renamed the dataset to `travel_wellness.csv` for the new project identity.<br>
+- Registered the source dataset and processed train/test files on Hugging Face Dataset Hub.<br>
+<br>
+Dataset Hub: https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data<br>
+</section><section class='code'><h3>Code</h3><pre><code># Data registration script used in the project
+from huggingface_hub import HfApi, create_repo
+from pathlib import Path
+
+api = HfApi()
+dataset_repo = &quot;AdinarayanaHF/travel-wellness-data&quot;
+create_repo(dataset_repo, repo_type=&quot;dataset&quot;, exist_ok=True)
+
+for file_path in [Path(&quot;data/travel_wellness.csv&quot;), *Path(&quot;data/processed&quot;).glob(&quot;*.csv&quot;)]:
+    api.upload_file(
+        path_or_fileobj=str(file_path),
+        path_in_repo=file_path.name,
+        repo_id=dataset_repo,
+        repo_type=&quot;dataset&quot;,
+    )</code></pre><h3>Output</h3><pre><code>dataset=https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data
+Uploaded files: travel_wellness.csv, Xtrain.csv, Xtest.csv, ytrain.csv, ytest.csv
+</code></pre></section><section class='markdown'>## 5. Data Preparation<br>
+<br>
+The preprocessing script performs these steps:<br>
+<br>
+1. Loads the source data from `data/travel_wellness.csv` locally, with Hugging Face paths supported through configuration.<br>
+2. Drops identifier columns: `CustomerID` and `Unnamed: 0`.<br>
+3. Corrects the `Gender` value `Fe Male` to `Female`.<br>
+4. Splits predictors and target variable `ProdTaken`.<br>
+5. Creates an 80/20 train-test split using `random_state=42`.<br>
+6. Saves processed splits locally under `data/processed/`.<br>
+7. Uploads processed splits to the Hugging Face Dataset Hub when authenticated.<br>
+</section><section class='code'><h3>Code</h3><pre><code># Data preparation command
+# python model_building/prep.py</code></pre><h3>Output</h3><pre><code>Dataset loaded successfully.
+Generated files:
+- data/processed/Xtrain.csv
+- data/processed/Xtest.csv
+- data/processed/ytrain.csv
+- data/processed/ytest.csv
+</code></pre></section><section class='markdown'>## 6. Model Building and Experiment Tracking<br>
+<br>
+The model training script builds two candidate algorithms:<br>
+<br>
+- XGBoost Classifier<br>
+- Random Forest Classifier<br>
+<br>
+Preprocessing uses a scikit-learn pipeline with:<br>
+<br>
+- `StandardScaler` for numeric variables<br>
+- `OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)` for categorical variables<br>
+<br>
+Experiment tracking is handled through MLflow. The pipeline logs tuned parameters, model metrics, and model artifacts. The best model is selected using test recall for the positive class because the business goal is to identify likely buyers and avoid missing high-potential customers.<br>
+</section><section class='code'><h3>Code</h3><pre><code># Model training command
+# python model_building/train.py</code></pre><h3>Output</h3><pre><code>scale_pos_weight (class 0 / class 1): 4.2247
+
+=== Running model: xgboost ===
+Completed model: xgboost. Best params: {&#x27;xgbclassifier__learning_rate&#x27;: 0.1, &#x27;xgbclassifier__max_depth&#x27;: 3, &#x27;xgbclassifier__n_estimators&#x27;: 75}
+Test recall for xgboost: 0.7394
+
+=== Running model: random_forest ===
+Completed model: random_forest. Best params: {&#x27;randomforestclassifier__max_depth&#x27;: 10, &#x27;randomforestclassifier__max_features&#x27;: &#x27;sqrt&#x27;, &#x27;randomforestclassifier__n_estimators&#x27;: 100}
+Test recall for random_forest: 0.6970
+
+================ FINAL MODEL SELECTION ================
+Selected Model      : xgboost
+Best Test Recall    : 0.7394
+=======================================================
+Best Model saved as artifact at: deployment/travel_wellness_model.joblib
+</code></pre></section><section class='markdown'>## 7. Model Registration<br>
+<br>
+The selected model is registered on the Hugging Face Model Hub.<br>
+<br>
+Model Hub: https://huggingface.co/AdinarayanaHF/travel-wellness-model<br>
+<br>
+The deployed app can load the local model artifact bundled in the Space, and the app also supports loading `travel_wellness_model.joblib` from the Hugging Face Model Hub through `TRAVEL_WELLNESS_MODEL_REPO_ID`.<br>
+</section><section class='code'><h3>Code</h3><pre><code># Model registration script used in the project
+from huggingface_hub import HfApi, create_repo
+
+api = HfApi()
+model_repo = &quot;AdinarayanaHF/travel-wellness-model&quot;
+create_repo(model_repo, repo_type=&quot;model&quot;, exist_ok=True)
+api.upload_file(
+    path_or_fileobj=&quot;deployment/travel_wellness_model.joblib&quot;,
+    path_in_repo=&quot;travel_wellness_model.joblib&quot;,
+    repo_id=model_repo,
+    repo_type=&quot;model&quot;,
+)</code></pre><h3>Output</h3><pre><code>model=https://huggingface.co/AdinarayanaHF/travel-wellness-model
+Uploaded file: travel_wellness_model.joblib
+</code></pre></section><section class='markdown'>## 8. Model Deployment<br>
+<br>
+Deployment is implemented with a Docker-based Hugging Face Space.<br>
+<br>
+Deployment files:<br>
+<br>
+- `deployment/app.py`: Streamlit frontend and inference code<br>
+- `deployment/Dockerfile`: Docker configuration for Hugging Face Spaces<br>
+- `deployment/requirements.txt`: runtime dependencies<br>
+- `deploy_to_huggingface.py`: deployment helper script<br>
+- `deployment/travel_wellness_model.joblib`: trained model artifact used by the app<br>
+<br>
+Space URL: https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring<br>
+<br>
+Live app URL: https://adinarayanahf-travel-wellness-lead-scoring.hf.space<br>
+</section><section class='code'><h3>Code</h3><pre><code># Deployment command
+# python deploy_to_huggingface.py</code></pre><h3>Output</h3><pre><code>https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring
+Uploaded Space files:
+[&#x27;.gitattributes&#x27;, &#x27;Dockerfile&#x27;, &#x27;README.md&#x27;, &#x27;app.py&#x27;, &#x27;requirements.txt&#x27;, &#x27;travel_wellness_model.joblib&#x27;]
+Runtime status observed after deployment: BUILDING
+Space domain: adinarayanahf-travel-wellness-lead-scoring.hf.space
+</code></pre></section><section class='markdown'>## 9. MLOps Pipeline with GitHub Actions<br>
+<br>
+A CI/CD workflow was added at `.github/workflows/pipeline.yml`. It runs automatically on push, pull request, and manual dispatch.<br>
+<br>
+The workflow performs:<br>
+<br>
+1. Repository checkout<br>
+2. Python 3.12 setup<br>
+3. Dependency installation<br>
+4. Python syntax validation<br>
+5. Data preparation<br>
+6. Model training<br>
+7. Deployment artifact verification<br>
+8. Model artifact upload to GitHub Actions artifacts<br>
+<br>
+Workflow URL: https://github.com/adiitsoft/travel_experience_recommender/actions/workflows/pipeline.yml<br>
+</section><section class='code'><h3>Code</h3><pre><code># Key workflow commands from .github/workflows/pipeline.yml
+# python -m compileall deployment model_building hosting src deploy_to_huggingface.py
+# python model_building/prep.py
+# python model_building/train.py
+# test -f deployment/travel_wellness_model.joblib</code></pre><h3>Output</h3><pre><code>GitHub Actions workflow created: .github/workflows/pipeline.yml
+Repository pushed to main branch: https://github.com/adiitsoft/travel_experience_recommender
+Latest deployment-support commit pushed: c4c7ca5
+</code></pre></section><section class='markdown'>## 10. Output Evaluation<br>
+<br>
+Required evidence:<br>
+<br>
+- GitHub repository: https://github.com/adiitsoft/travel_experience_recommender<br>
+- GitHub Actions workflow: https://github.com/adiitsoft/travel_experience_recommender/actions/workflows/pipeline.yml<br>
+- Hugging Face Space: https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring<br>
+- Live Streamlit app: https://adinarayanahf-travel-wellness-lead-scoring.hf.space<br>
+- Dataset Hub: https://huggingface.co/datasets/AdinarayanaHF/travel-wellness-data<br>
+- Model Hub: https://huggingface.co/AdinarayanaHF/travel-wellness-model<br>
+<br>
+For final LMS submission, screenshots can be captured from the public links above:<br>
+<br>
+1. GitHub folder structure showing `.github/workflows`, `data`, `model_building`, `deployment`, and `hosting`.<br>
+2. GitHub Actions page showing workflow execution.<br>
+3. Hugging Face Space page showing the deployed Streamlit app.<br>
+</section><section class='markdown'>## 11. Business Insights<br>
+<br>
+- The positive purchase class is imbalanced. The class 0 to class 1 ratio is approximately 4.22, so class imbalance handling is important.<br>
+- XGBoost achieved the best test recall among the evaluated models. This is useful for marketing because recall helps reduce missed potential buyers.<br>
+- The app converts customer profile and interaction details into a model-ready dataframe and returns whether the customer is likely to accept or decline the offer.<br>
+- The MLOps workflow improves reproducibility by automating preprocessing, training, artifact verification, and model artifact generation.<br>
+<br>
+## 12. Conclusion<br>
+<br>
+The project implements an end-to-end MLOps solution for Visit with Us. It registers data on Hugging Face, prepares train/test splits, tracks model experimentation with MLflow, registers the best model on Hugging Face Model Hub, deploys a Streamlit app on Hugging Face Spaces, and automates the ML workflow using GitHub Actions. The deployed solution enables the company to prioritize likely Wellness Tourism Package buyers and improve marketing campaign efficiency.<br>
+</section>
+</main>
+</body>
+</html>

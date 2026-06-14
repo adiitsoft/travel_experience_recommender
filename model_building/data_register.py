@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 
 
-repo_id = os.getenv("TRAVEL_WELLNESS_DATASET_REPO_ID", "your-huggingface-username/travel-wellness-data")
+repo_id = os.getenv("TRAVEL_WELLNESS_DATASET_REPO_ID", "AdinarayanaHF/travel-wellness-data")
 repo_type = "dataset"
 project_root = Path(__file__).resolve().parents[1]
 data_dir = project_root / "data"
