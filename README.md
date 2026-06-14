@@ -1,4 +1,4 @@
-# Travel Wellness Lead Scoring
+# Travel Wellness Prediction
 
 A Streamlit and scikit-learn project for estimating whether a customer is likely to accept a wellness travel offer. The project includes data preparation, model training with MLflow tracking, and a deployable prediction app.
 
