@@ -29,7 +29,7 @@ processed_dir = project_root / "data" / "processed"
 model_output_dir = project_root / "deployment"
 model_output_dir.mkdir(parents=True, exist_ok=True)
 
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", str(project_root / "mlruns")))
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", (project_root / "mlruns").as_uri()))
 mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME", "travel-wellness-lead-scoring"))
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
@@ -73,22 +73,18 @@ models = {
             n_jobs=-1
         ),
         "param_grid": {
-            'xgbclassifier__n_estimators': [50, 75, 100],
+            'xgbclassifier__n_estimators': [75],
             'xgbclassifier__max_depth': [2, 3],
-            'xgbclassifier__colsample_bytree': [0.4, 0.6],
-            'xgbclassifier__colsample_bylevel': [0.4, 0.6],
-            'xgbclassifier__learning_rate': [0.01, 0.1],
-            'xgbclassifier__reg_lambda': [0.4, 0.6],
+            'xgbclassifier__learning_rate': [0.1],
         }
     },
     "random_forest": {
         # Use 'balanced' to let RandomForest internally weigh classes inversely proportional to class frequencies
         "estimator": RandomForestClassifier(class_weight='balanced', random_state=42, n_jobs=-1),
         "param_grid": {
-            'randomforestclassifier__n_estimators': [100, 200],
-            'randomforestclassifier__max_depth': [None, 10, 20],
-            'randomforestclassifier__max_features': ['sqrt', 'log2'],
-            'randomforestclassifier__min_samples_split': [2, 5]
+            'randomforestclassifier__n_estimators': [100],
+            'randomforestclassifier__max_depth': [None, 10],
+            'randomforestclassifier__max_features': ['sqrt'],
         }
     }
 }
@@ -112,7 +108,7 @@ for model_name, model_info in models.items():
     # Outer MLflow run for this model
     with mlflow.start_run(run_name=model_name):
         # Grid search (5-fold CV)
-        grid_search = GridSearchCV(pipeline, param_grid, cv=5, n_jobs=-1, scoring="recall")
+        grid_search = GridSearchCV(pipeline, param_grid, cv=3, n_jobs=-1, scoring="recall")
         grid_search.fit(Xtrain, ytrain)
 
         # Log each hyperparameter combination as a nested run with its mean/std recall

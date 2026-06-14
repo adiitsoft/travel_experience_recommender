@@ -2,6 +2,8 @@
 
 A Streamlit and scikit-learn project for estimating whether a customer is likely to accept a wellness travel offer. The project includes data preparation, model training with MLflow tracking, and a deployable prediction app.
 
+Deployed app: https://huggingface.co/spaces/AdinarayanaHF/travel-wellness-lead-scoring
+
 ## Project Structure
 
 - `data/travel_wellness.csv` is the source dataset used by the local workflow.
