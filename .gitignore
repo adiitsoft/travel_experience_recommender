@@ -1,16 +1,68 @@
-.venv/
+# Byte-compiled / optimized files
 __pycache__/
 *.py[cod]
+*$py.class
 
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments and local config
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 .env
 *.env
 !.env.example
 
+# Tests and notebooks
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+.hypothesis/
+htmlcov/
+.ipynb_checkpoints/
+
+# Runtime and generated artifacts
 mlruns/
+logs/
 *.log
-
-.streamlit/secrets.toml
-
 data/processed/
+data/artifacts/
 deployment/*.joblib
 model_building/*.joblib
+*.pkl
+*.joblib
+
+# App secrets
+.streamlit/secrets.toml
+
+# OS/editor files
+.DS_Store
+.vscode/

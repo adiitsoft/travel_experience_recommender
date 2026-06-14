@@ -1,14 +1,15 @@
 # Travel Wellness Lead Scoring
 
-A Streamlit and scikit-learn project for estimating whether a customer is likely to accept a wellness travel offer. The project includes data preparation, model training with MLflow tracking, and a deployable Streamlit app.
+A Streamlit and scikit-learn project for estimating whether a customer is likely to accept a wellness travel offer. The project includes data preparation, model training with MLflow tracking, and a deployable prediction app.
 
 ## Project Structure
 
-- `data/` stores the source dataset and generated train/test files.
-- `model_building/prep.py` prepares the dataset and writes processed splits.
+- `data/travel_wellness.csv` is the source dataset used by the local workflow.
+- `model_building/prep.py` prepares the dataset and writes train/test splits.
 - `model_building/train.py` trains candidate models, selects the best model, and saves it for the app.
 - `deployment/app.py` runs the Streamlit prediction interface.
 - `hosting/hosting.py` uploads the deployment folder to your configured Hugging Face Space.
+- `src/` contains existing recommender support modules from the GitHub repository history.
 
 ## Configuration
 
@@ -28,9 +29,11 @@ Optional settings for publishing data, model artifacts, and the app:
 
 ## Local Workflow
 
-Install dependencies:
+Create and activate a virtual environment, then install dependencies:
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
