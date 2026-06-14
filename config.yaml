@@ -1,0 +1,89 @@
+# Travel Experience Recommender Configuration
+
+# Data Configuration
+data:
+  raw_path: "data/raw/"
+  processed_path: "data/processed/"
+  artifacts_path: "data/artifacts/"
+  test_size: 0.2
+  validation_size: 0.1
+
+# Feature Engineering
+features:
+  user_features:
+    - age_group
+    - location
+    - occupation
+    - income_level
+    - travel_frequency
+  destination_features:
+    - climate_zone
+    - activities
+    - budget_range
+    - culture_score
+    - infrastructure_quality
+  scaling_method: "standard"  # standard, minmax, robust
+  handle_missing: "mean"       # mean, median, drop
+
+# Model Configuration
+models:
+  # Collaborative Filtering
+  collaborative:
+    algorithm: "cosine"  # cosine, euclidean, pearson
+    n_neighbors: 10
+    min_common_items: 2
+    
+  # Content-Based Filtering
+  content_based:
+    similarity_metric: "cosine"
+    feature_weights:
+      climate: 0.15
+      activities: 0.25
+      budget: 0.20
+      culture: 0.20
+      amenities: 0.20
+  
+  # Hybrid Approach
+  hybrid:
+    collaborative_weight: 0.4
+    content_weight: 0.4
+    popularity_weight: 0.2
+    
+  # Matrix Factorization
+  matrix_factorization:
+    n_factors: 50
+    learning_rate: 0.01
+    n_epochs: 50
+    regularization: 0.01
+
+# Recommendation Parameters
+recommendation:
+  top_k: 10
+  min_confidence_score: 0.5
+  diversity_factor: 0.3  # Trade-off between relevance and diversity
+  filter_already_visited: true
+  cold_start_strategy: "popularity"  # popularity, content-based
+
+# Evaluation Configuration
+evaluation:
+  metrics:
+    - ndcg
+    - map
+    - precision
+    - recall
+    - coverage
+  k_values: [5, 10, 20]
+  min_test_interactions: 5
+
+# MLFlow Configuration
+mlflow:
+  experiment_name: "travel_recommender_experiments"
+  tracking_uri: "./mlruns"
+  log_models: true
+  log_artifacts: true
+  
+# Logging
+logging:
+  level: "INFO"
+  log_file: "logs/recommender.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
